@@ -54,11 +54,13 @@ class App extends Component {
           "Telephone": "200-707-8670"
       }
     ],
+
     "collapse": false,
     "formFirst": '',
     "formLast": '',
     "formDOB": '',
-    "formTel": ''
+    "formTel": '',
+    "searchVal":'',
   }
 
   addContactHandler=(event)=>{
@@ -84,6 +86,81 @@ class App extends Component {
     this.setState({"contacts":contacts});
   }
 
+  searchHandler=(event)=>{
+    
+
+   
+    let tempContacts=this.state.contacts;
+    
+    let returnContacts=[];
+    for(let i=0; i<tempContacts.length;i++)
+    {
+    
+       
+       if (tempContacts[i].FirstName.toUpperCase().includes(this.state.searchVal.toUpperCase()))
+       {
+        returnContacts.push({
+          "key": generate(10),
+          "FirstName": tempContacts[i].FirstName,
+          "LastName": tempContacts[i].LastName,
+          "Birthday": tempContacts[i].Birthday,
+          "Telephone": tempContacts[i].Telephone,
+        });
+         
+       }
+       else if (tempContacts[i].LastName.toUpperCase().includes(this.state.searchVal.toUpperCase()))
+       {
+        returnContacts.push({
+          "key": generate(10),
+          "FirstName": tempContacts[i].FirstName,
+          "LastName": tempContacts[i].LastName,
+          "Birthday": tempContacts[i].Birthday,
+          "Telephone": tempContacts[i].Telephone,
+        });
+         
+       }
+       else if (tempContacts[i].Birthday.toUpperCase().includes(this.state.searchVal.toUpperCase()))
+       {
+        returnContacts.push({
+          "key": generate(10),
+          "FirstName": tempContacts[i].FirstName,
+          "LastName": tempContacts[i].LastName,
+          "Birthday": tempContacts[i].Birthday,
+          "Telephone": tempContacts[i].Telephone,
+        });
+         
+       }
+       else if (tempContacts[i].Telephone.toUpperCase().includes(this.state.searchVal.toUpperCase()))
+       {
+        returnContacts.push({
+          "key": generate(10),
+          "FirstName": tempContacts[i].FirstName,
+          "LastName": tempContacts[i].LastName,
+          "Birthday": tempContacts[i].Birthday,
+          "Telephone": tempContacts[i].Telephone,
+        });
+         
+       };
+      
+      
+      
+     }
+
+     if(this.state.searchVal===""){
+      returnContacts = tempContacts;
+     }
+     this.setState({"contacts":returnContacts});
+     console.log(returnContacts);
+      
+    
+    }
+      
+    
+    
+    
+
+  
+
   render=()=>{
     return (
       <div className="App">
@@ -91,6 +168,11 @@ class App extends Component {
           <header className="App-header text-left">
             <h1>React Based Address List</h1>
           </header>
+          <input  
+          value={this.state.searchVal}
+          onChange={(e) => this.setState({searchVal: e.target.value})}
+          onInput={this.searchHandler} 
+           type="text" placeholder="Search For Contacts"/>
           <Contacts 
             contacts={this.state.contacts}
             closer={this.closeContactHandler}>
@@ -114,15 +196,15 @@ class App extends Component {
 
               <Form.Label>DOB</Form.Label>
               <Form.Control 
-                type="date" 
-                placeholder="Enter DOB" 
+                type="text" 
+                placeholder="Enter DOB (DD-MM-YYYY)" 
                 value={this.state.formDOB}
                 onChange={(e) => this.setState({formDOB: e.target.value})}/>
 
               <Form.Label>Telephone</Form.Label>
               <Form.Control 
-                type="number" 
-                placeholder="Enter Telephone" 
+                type="text" 
+                placeholder="Enter Telephone (XXX-XXX-XXXX)" 
                 value={this.state.formTel}
                 onChange={(e) => this.setState({formTel: e.target.value})}/>
             </Form.Group>

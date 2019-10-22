@@ -8,7 +8,7 @@ function Contacts (props) {
   let contacts = [...props.contacts];
   let listItems = contacts.map((item)=>
     <ListGroup.Item key={item.key}>
-      <Card className="bg-light border rounded">
+      <Card className="bg-light">
         <span key={item.key}
           className="text-right"
           onClick={props.closer.bind(null,item.key)}>{'\u274e'}</span>
