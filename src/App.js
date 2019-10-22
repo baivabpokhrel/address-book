@@ -166,13 +166,16 @@ class App extends Component {
       <div className="App">
         <Container>
           <header className="App-header text-left">
-            <h1>React Based Address List</h1>
+            <h1>React Based Address List </h1>
+            <input  
+            
+            id="searchBox"
+            value={this.state.searchVal}
+            onChange={(e) => this.setState({searchVal: e.target.value})}
+            onKeyUp={this.searchHandler} 
+            type="text" placeholder="Search For Contacts"/>
           </header>
-          <input  
-          value={this.state.searchVal}
-          onChange={(e) => this.setState({searchVal: e.target.value})}
-          onInput={this.searchHandler} 
-           type="text" placeholder="Search For Contacts"/>
+          
           <Contacts 
             contacts={this.state.contacts}
             closer={this.closeContactHandler}>
